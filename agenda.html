@@ -754,17 +754,15 @@
     <!-- Toast Notification -->
     <div id="toast" class="toast"></div>
 
-    <script>
+     <script>
         // Data Storage
         let transactions = JSON.parse(localStorage.getItem('transactions')) || [];
         let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
         let editingTransactionId = null;
         let editingTaskId = null;
-
         // Categories
         const incomeCategories = ['Salario', 'Inversión', 'Freelance', 'Bono', 'Otro Ingreso'];
         const expenseCategories = ['Comida', 'Transporte', 'Vivienda', 'Entretenimiento', 'Salud', 'Educación', 'Ropa', 'Otro Gasto'];
-
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
             updateCurrentDate();
@@ -774,7 +772,6 @@
             updateCategoryFilters();
             setTodayDate();
         });
-
         // Tab Navigation
         function switchTab(tabName) {
             document.querySelectorAll('.nav-tab').forEach(tab => tab.classList.remove('active'));
@@ -787,19 +784,16 @@
                 updateDashboard();
             }
         }
-
         // Date Functions
         function updateCurrentDate() {
             const date = new Date();
             const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
             document.getElementById('currentDate').textContent = date.toLocaleDateString('es-ES', options);
         }
-
         function setTodayDate() {
             const today = new Date().toISOString().split('T')[0];
             document.getElementById('transactionDate').value = today;
         }
-
         // Toast Notification
         function showToast(message, duration = 3000) {
             const toast = document.getElementById('toast');
@@ -810,7 +804,6 @@
                 toast.classList.remove('show');
             }, duration);
         }
-
         // Transaction Functions
         function openTransactionModal(transactionId = null) {
             const modal = document.getElementById('transactionModal');
@@ -837,7 +830,6 @@
             updateCategoryOptions();
             modal.classList.add('active');
         }
-
         function closeModal(modalId) {
             document.getElementById(modalId).classList.remove('active');
             if (modalId === 'transactionModal') {
@@ -845,7 +837,6 @@
                 setTodayDate();
             }
         }
-
         function updateCategoryOptions() {
             const type = document.getElementById('transactionType').value;
             const categorySelect = document.getElementById('transactionCategory');
@@ -856,9 +847,7 @@
                 categorySelect.innerHTML += `<option value="${category}">${category}</option>`;
             });
         }
-
         document.getElementById('transactionType').addEventListener('change', updateCategoryOptions);
-
         function saveTransaction(event) {
             event.preventDefault();
             
@@ -885,7 +874,6 @@
             updateDashboard();
             closeModal('transactionModal');
         }
-
         function deleteTransaction(id) {
             if (confirm('¿Estás seguro de que quieres eliminar esta transacción?')) {
                 transactions = transactions.filter(t => t.id !== id);
@@ -895,7 +883,6 @@
                 showToast('Transacción eliminada');
             }
         }
-
         function loadTransactions() {
             const tbody = document.getElementById('transactionsBody');
             tbody.innerHTML = '';
@@ -910,7 +897,7 @@
                     <td><span class="transaction-category">${transaction.category}</span></td>
                     <td><i class="fas fa-${transaction.type === 'income' ? 'arrow-down income' : 'arrow-up expense'}"></i></td>
                     <td class="${transaction.type === 'income' ? 'income' : 'expense'}">
-                        ${transaction.type === 'income' ? '+' : '-'}€${transaction.amount.toFixed(2)}
+                        ${transaction.type === 'income' ? '+' : '-'}$${transaction.amount.toFixed(2)}
                     </td>
                     <td>
                         <button class="btn btn-sm btn-primary" onclick="openTransactionModal(${transaction.id})">
@@ -924,7 +911,6 @@
                 tbody.appendChild(row);
             });
         }
-
         function getFilteredTransactions() {
             let filtered = [...transactions];
             
@@ -946,11 +932,9 @@
             
             return filtered.sort((a, b) => new Date(b.date) - new Date(a.date));
         }
-
         function filterTransactions() {
             loadTransactions();
         }
-
         function updateCategoryFilters() {
             const categorySelect = document.getElementById('filterCategory');
             const allCategories = [...new Set([...incomeCategories, ...expenseCategories])];
@@ -960,7 +944,6 @@
                 categorySelect.innerHTML += `<option value="${category}">${category}</option>`;
             });
         }
-
         // Task Functions
         function openTaskModal(taskId = null) {
             const modal = document.getElementById('taskModal');
@@ -984,7 +967,6 @@
             
             modal.classList.add('active');
         }
-
         function saveTask(event) {
             event.preventDefault();
             
@@ -1011,7 +993,6 @@
             updateDashboard();
             closeModal('taskModal');
         }
-
         function toggleTask(id) {
             const task = tasks.find(t => t.id === id);
             if (task) {
@@ -1022,7 +1003,6 @@
                 showToast(task.completed ? 'Tarea completada' : 'Tarea marcada como pendiente');
             }
         }
-
         function deleteTask(id) {
             if (confirm('¿Estás seguro de que quieres eliminar esta tarea?')) {
                 tasks = tasks.filter(t => t.id !== id);
@@ -1032,7 +1012,6 @@
                 showToast('Tarea eliminada');
             }
         }
-
         function filterTasks(filter) {
             const taskList = document.getElementById('taskList');
             taskList.innerHTML = '';
@@ -1082,11 +1061,9 @@
                 taskList.innerHTML = '<p style="text-align: center; color: #6b7280;">No hay tareas</p>';
             }
         }
-
         function loadTasks() {
             filterTasks('all');
         }
-
         // Dashboard Functions
         function updateDashboard() {
             const totalIncome = transactions
@@ -1099,15 +1076,14 @@
             
             const balance = totalIncome - totalExpenses;
             
-            document.getElementById('totalIncome').textContent = `€${totalIncome.toFixed(2)}`;
-            document.getElementById('totalExpenses').textContent = `€${totalExpenses.toFixed(2)}`;
-            document.getElementById('balance').textContent = `€${balance.toFixed(2)}`;
+            document.getElementById('totalIncome').textContent = `$${totalIncome.toFixed(2)}`;
+            document.getElementById('totalExpenses').textContent = `$${totalExpenses.toFixed(2)}`;
+            document.getElementById('balance').textContent = `$${balance.toFixed(2)}`;
             document.getElementById('totalTasks').textContent = tasks.filter(t => !t.completed).length;
             
             updateExpenseChart();
             updateRecentTasks();
         }
-
         function updateExpenseChart() {
             const ctx = document.getElementById('expenseChart').getContext('2d');
             
@@ -1145,12 +1121,23 @@
                     plugins: {
                         legend: {
                             position: 'right'
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    label += '$' + context.parsed.toFixed(2);
+                                    return label;
+                                }
+                            }
                         }
                     }
                 }
             });
         }
-
         function updateRecentTasks() {
             const recentTasksContainer = document.getElementById('recentTasks');
             const recentTasks = tasks
@@ -1177,14 +1164,12 @@
                 </div>
             `).join('');
         }
-
         // Utility Functions
         function formatDate(dateString) {
             const date = new Date(dateString);
             const options = { day: 'numeric', month: 'short', year: 'numeric' };
             return date.toLocaleDateString('es-ES', options);
         }
-
         // Close modals on outside click
         window.onclick = function(event) {
             if (event.target.classList.contains('modal')) {
@@ -1193,4 +1178,5 @@
         }
     </script>
 </body>
+
 </html>
