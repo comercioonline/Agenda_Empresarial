@@ -3,23 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestor Financiero y Tareas</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Nuestro Rincón de Pareja</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
     <style>
+        /* --- Variables de Diseño (Tema Romántico) --- */
         :root {
-            --primary-color: #4f46e5;
-            --secondary-color: #7c3aed;
-            --success-color: #10b981;
-            --danger-color: #ef4444;
-            --warning-color: #f59e0b;
-            --dark-color: #1f2937;
-            --light-color: #f3f4f6;
-            --white: #ffffff;
-            --shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --primary-color: #e84393;
+            --secondary-color: #fd79a8;
+            --background-color: #fdf6f8;
+            --card-background: #ffffff;
+            --text-color: #2d3436;
+            --text-light: #636e72;
+            --shadow-color: rgba(232, 67, 147, 0.15);
+            --font-heading: 'Dancing Script', cursive;
+            --font-body: 'Lato', sans-serif;
         }
 
+        /* --- Estilos Generales --- */
         * {
             margin: 0;
             padding: 0;
@@ -27,1156 +27,588 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background-color: var(--light-color);
-            color: var(--dark-color);
+            font-family: var(--font-body);
+            background-color: var(--background-color);
+            color: var(--text-color);
             line-height: 1.6;
+            background-image: radial-gradient(circle at 20% 80%, var(--secondary-color) 0%, transparent 50%), radial-gradient(circle at 80% 20%, var(--primary-color) 0%, transparent 50%);
+            background-size: 200% 200%;
+            animation: backgroundShift 15s ease infinite;
+            min-height: 100vh;
         }
 
-        .container {
-            max-width: 1200px;
+        @keyframes backgroundShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        /* --- Navegación --- */
+        nav {
+            background-color: var(--card-background);
+            box-shadow: 0 4px 15px var(--shadow-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 2px solid var(--secondary-color);
+        }
+
+        .nav-container {
+            max-width: 900px;
             margin: 0 auto;
             padding: 0 20px;
-        }
-
-        /* Header */
-        header {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: var(--white);
-            padding: 1.5rem 0;
-            box-shadow: var(--shadow-lg);
-        }
-
-        .header-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        /* Navigation */
-        nav {
-            background-color: var(--white);
-            box-shadow: var(--shadow);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .nav-tabs {
-            display: flex;
-            gap: 0;
-        }
-
-        .nav-tab {
-            flex: 1;
-            padding: 1rem;
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: 500;
-            color: var(--dark-color);
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .nav-tab:hover {
-            background-color: var(--light-color);
-        }
-
-        .nav-tab.active {
+        .nav-logo {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
             color: var(--primary-color);
+            padding: 15px 0;
+            cursor: pointer;
+            outline: none;
+        }
+        
+        .nav-logo[contenteditable="true"]:focus {
+            background-color: rgba(253, 121, 168, 0.1);
+            border-radius: 8px;
+            padding: 0 10px;
         }
 
-        .nav-tab.active::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background-color: var(--primary-color);
+        .nav-menu {
+            list-style: none;
+            display: flex;
+            gap: 5px;
         }
 
-        /* Main Content */
-        main {
-            padding: 2rem 0;
-            min-height: calc(100vh - 200px);
-        }
-
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
+        .nav-item a {
             display: block;
-            animation: fadeIn 0.3s ease;
+            padding: 20px 15px;
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 700;
+            transition: background-color 0.3s, color 0.3s;
+            border-radius: 8px;
+        }
+        
+        .nav-item a:hover, .nav-item a.active {
+            color: var(--card-background);
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+        }
+
+        /* --- Contenedor Principal y Secciones --- */
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .content-section {
+            display: none; /* Todas las secciones ocultas por defecto */
+            animation: fadeIn 0.5s ease;
+        }
+
+        .content-section.active {
+            display: block;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+            from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-
-        /* Cards */
+        
+        /* --- Estilos Comunes para Formularios y Tarjetas --- */
         .card {
-            background-color: var(--white);
-            border-radius: 12px;
-            padding: 1.5rem;
-            box-shadow: var(--shadow);
-            margin-bottom: 1.5rem;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            background: var(--card-background);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px var(--shadow-color);
+            margin-bottom: 25px;
+            border: 1px solid rgba(253, 121, 168, 0.3);
         }
 
-        .card:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        /* Dashboard */
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .stat-card {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: var(--white);
-            text-align: center;
-            padding: 2rem;
-            border-radius: 12px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .stat-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-            animation: pulse 3s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(0.8); opacity: 0.5; }
-            50% { transform: scale(1.2); opacity: 0.8; }
-        }
-
-        .stat-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            opacity: 0.9;
-        }
-
-        .stat-value {
-            font-size: 2.5rem;
-            font-weight: bold;
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-label {
-            font-size: 1rem;
-            opacity: 0.9;
-        }
-
-        /* Forms */
         .form-group {
-            margin-bottom: 1.5rem;
+            margin-bottom: 20px;
         }
 
         label {
             display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-            color: var(--dark-color);
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--primary-color);
         }
 
-        input, select, textarea {
+        input[type="text"],
+        input[type="date"],
+        textarea,
+        select {
             width: 100%;
-            padding: 0.75rem;
-            border: 2px solid #e5e7eb;
+            padding: 12px;
+            border: 2px solid #f0f0f0;
             border-radius: 8px;
             font-size: 1rem;
-            transition: border-color 0.3s ease;
+            font-family: var(--font-body);
+            transition: border-color 0.3s, box-shadow 0.3s;
         }
 
-        input:focus, select:focus, textarea:focus {
+        input[type="text"]:focus,
+        input[type="date"]:focus,
+        textarea:focus,
+        select:focus {
             outline: none;
-            border-color: var(--primary-color);
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 3px rgba(253, 121, 168, 0.2);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
         }
 
         .btn {
-            padding: 0.75rem 1.5rem;
-            border: none;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .btn-primary {
-            background-color: var(--primary-color);
-            color: var(--white);
-        }
-
-        .btn-primary:hover {
-            background-color: #4338ca;
-            transform: translateY(-1px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .btn-success {
-            background-color: var(--success-color);
-            color: var(--white);
-        }
-
-        .btn-success:hover {
-            background-color: #059669;
-        }
-
-        .btn-danger {
-            background-color: var(--danger-color);
-            color: var(--white);
-        }
-
-        .btn-danger:hover {
-            background-color: #dc2626;
-        }
-
-        .btn-sm {
-            padding: 0.5rem 1rem;
-            font-size: 0.875rem;
-        }
-
-        /* Tables */
-        .table-container {
-            overflow-x: auto;
-            margin-top: 1.5rem;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        th, td {
-            padding: 1rem;
-            text-align: left;
-            border-bottom: 1px solid #e5e7eb;
-        }
-
-        th {
-            background-color: var(--light-color);
-            font-weight: 600;
-            color: var(--dark-color);
-        }
-
-        tr:hover {
-            background-color: #f9fafb;
-        }
-
-        /* Transactions */
-        .transaction-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem;
-            border: 1px solid #e5e7eb;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-            transition: all 0.3s ease;
-        }
-
-        .transaction-item:hover {
-            border-color: var(--primary-color);
-            box-shadow: var(--shadow);
-        }
-
-        .transaction-info {
-            flex: 1;
-        }
-
-        .transaction-category {
             display: inline-block;
-            padding: 0.25rem 0.75rem;
-            background-color: var(--light-color);
-            border-radius: 20px;
-            font-size: 0.875rem;
-            margin-top: 0.25rem;
-        }
-
-        .transaction-amount {
-            font-size: 1.25rem;
-            font-weight: bold;
-        }
-
-        .income { color: var(--success-color); }
-        .expense { color: var(--danger-color); }
-
-        /* Tasks */
-        .task-list {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .task-item {
-            display: flex;
-            align-items: center;
-            padding: 1rem;
-            background-color: var(--white);
-            border-radius: 8px;
-            box-shadow: var(--shadow);
-            transition: all 0.3s ease;
-        }
-
-        .task-item:hover {
-            transform: translateX(5px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .task-item.completed {
-            opacity: 0.7;
-        }
-
-        .task-item.completed .task-text {
-            text-decoration: line-through;
-            color: #9ca3af;
-        }
-
-        .task-checkbox {
-            width: 1.5rem;
-            height: 1.5rem;
-            margin-right: 1rem;
-            cursor: pointer;
-        }
-
-        .task-text {
-            flex: 1;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
             font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 15px var(--shadow-color);
         }
 
-        .task-priority {
-            padding: 0.25rem 0.5rem;
-            border-radius: 4px;
-            font-size: 0.75rem;
-            font-weight: 500;
-            margin-right: 1rem;
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px var(--shadow-color);
         }
 
-        .priority-high {
-            background-color: #fee2e2;
-            color: #991b1b;
+        .btn-secondary {
+            background: #95a5a6;
         }
 
-        .priority-medium {
-            background-color: #fef3c7;
-            color: #92400e;
+        .item-list {
+            display: grid;
+            gap: 20px;
         }
 
-        .priority-low {
-            background-color: #dbeafe;
-            color: #1e40af;
-        }
-
-        /* Charts */
-        .chart-container {
+        .item-card {
+            background: var(--card-background);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            border-left: 5px solid var(--primary-color);
             position: relative;
-            height: 300px;
-            margin-top: 1.5rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        /* Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 1000;
-            animation: fadeIn 0.3s ease;
+        .item-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px var(--shadow-color);
+        }
+        
+        .item-card h3 {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
         }
 
-        .modal.active {
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .item-card p {
+            color: var(--text-color);
+            margin-bottom: 10px;
         }
 
-        .modal-content {
-            background-color: var(--white);
-            padding: 2rem;
-            border-radius: 12px;
-            max-width: 500px;
-            width: 90%;
-            max-height: 90vh;
-            overflow-y: auto;
-            animation: slideIn 0.3s ease;
+        .item-card .item-meta {
+            font-size: 0.9rem;
+            color: var(--text-light);
         }
 
-        @keyframes slideIn {
-            from { transform: translateY(-50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-        }
-
-        .modal-title {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--dark-color);
-        }
-
-        .close-btn {
+        .delete-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
             background: none;
             border: none;
+            color: var(--text-light);
             font-size: 1.5rem;
             cursor: pointer;
-            color: #6b7280;
-            transition: color 0.3s ease;
+            transition: color 0.3s, transform 0.3s;
         }
 
-        .close-btn:hover {
-            color: var(--dark-color);
+        .delete-btn:hover {
+            color: #e74c3c;
+            transform: scale(1.2);
         }
 
-        /* Responsive */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-light);
+        }
+        .empty-state-icon { font-size: 4rem; margin-bottom: 20px; }
+
+        /* --- Estilos Específicos de Sección --- */
+        #inicio h1 { font-family: var(--font-heading); font-size: 3rem; color: var(--primary-color); text-align: center; margin-bottom: 20px;}
+        #inicio .summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; text-align: center;}
+        #inicio .summary-card { padding: 20px; background: var(--card-background); border-radius: 15px; box-shadow: 0 5px 15px var(--shadow-color);}
+        #inicio .summary-card h2 { font-size: 2.5rem; color: var(--secondary-color);}
+        #inicio .summary-card p { color: var(--text-light);}
+
+        /* --- Responsive Design --- */
         @media (max-width: 768px) {
-            .dashboard-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .nav-tabs {
-                overflow-x: auto;
-                -webkit-overflow-scrolling: touch;
-            }
-
-            .header-content {
-                flex-direction: column;
-                gap: 1rem;
-            }
-
-            .modal-content {
-                margin: 1rem;
-            }
-        }
-
-        /* Toast Notification */
-        .toast {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            background-color: var(--dark-color);
-            color: var(--white);
-            padding: 1rem 1.5rem;
-            border-radius: 8px;
-            box-shadow: var(--shadow-lg);
-            display: none;
-            animation: slideUp 0.3s ease;
-            z-index: 2000;
-        }
-
-        .toast.show {
-            display: block;
-        }
-
-        @keyframes slideUp {
-            from { transform: translateY(100px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
+            .nav-container { flex-direction: column; }
+            .nav-menu { width: 100%; justify-content: center; margin-top: 10px; }
+            .nav-item a { padding: 10px 15px; font-size: 0.9rem; }
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <i class="fas fa-wallet"></i>
-                    Gestor Financiero
-                </div>
-                <div class="header-stats">
-                    <span id="currentDate"></span>
-                </div>
-            </div>
-        </div>
-    </header>
 
     <nav>
-        <div class="container">
-            <div class="nav-tabs">
-                <button class="nav-tab active" onclick="switchTab('dashboard')">
-                    <i class="fas fa-chart-line"></i> Dashboard
-                </button>
-                <button class="nav-tab" onclick="switchTab('transactions')">
-                    <i class="fas fa-exchange-alt"></i> Transacciones
-                </button>
-                <button class="nav-tab" onclick="switchTab('tasks')">
-                    <i class="fas fa-tasks"></i> Tareas
-                </button>
-            </div>
+        <div class="nav-container">
+            <div class="nav-logo" id="nav-title" contenteditable="true">Nuestro Rincón</div>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="#inicio" class="nav-link active" data-section="inicio">🏠 Inicio</a></li>
+                <li class="nav-item"><a href="#recuerdos" class="nav-link" data-section="recuerdos">💖 Recuerdos</a></li>
+                <li class="nav-item"><a href="#metas" class="nav-link" data-section="metas">🎯 Metas</a></li>
+                <li class="nav-item"><a href="#actividades" class="nav-link" data-section="actividades">🎉 Actividades</a></li>
+                <li class="nav-item"><a href="#sorpresa" class="nav-link" data-section="sorpresa">🎁 Sorpresa</a></li>
+            </ul>
         </div>
     </nav>
 
-    <main class="container">
-        <!-- Dashboard Tab -->
-        <div id="dashboard" class="tab-content active">
-            <h2 style="margin-bottom: 2rem;">Resumen General</h2>
-            
-            <div class="dashboard-grid">
-                <div class="stat-card">
-                    <div class="stat-icon">
-                        <i class="fas fa-arrow-down"></i>
+    <div class="container">
+        <main>
+            <!-- SECCIÓN: INICIO -->
+            <section id="inicio" class="content-section active">
+                <h1>¡Bienvenidos a su Espacio!</h1>
+                <p style="text-align: center; color: var(--text-light); margin-bottom: 40px;">Aquí guardan la historia de su amor y construyen su futuro juntos.</p>
+                <div class="summary-grid">
+                    <div class="summary-card">
+                        <h2 id="memories-count">0</h2>
+                        <p>Recuerdos Guardados</p>
                     </div>
-                    <div class="stat-value" id="totalIncome">Cup0</div>
-                    <div class="stat-label">Ingresos Totales</div>
-                </div>
-                
-                <div class="stat-card" style="background: linear-gradient(135deg, #ef4444, #dc2626);">
-                    <div class="stat-icon">
-                        <i class="fas fa-arrow-up"></i>
+                    <div class="summary-card">
+                        <h2 id="goals-count">0</h2>
+                        <p>Metas en Pareja</p>
                     </div>
-                    <div class="stat-value" id="totalExpenses">CUP0</div>
-                    <div class="stat-label">Gastos Totales</div>
-                </div>
-                
-                <div class="stat-card" style="background: linear-gradient(135deg, #10b981, #059669);">
-                    <div class="stat-icon">
-                        <i class="fas fa-piggy-bank"></i>
-                    </div>
-                    <div class="stat-value" id="balance">CUP0</div>
-                    <div class="stat-label">Balance</div>
-                </div>
-                
-                <div class="stat-card" style="background: linear-gradient(135deg, #f59e0b, #d97706);">
-                    <div class="stat-icon">
-                        <i class="fas fa-chart-pie"></i>
-                    </div>
-                    <div class="stat-value" id="totalTasks">0</div>
-                    <div class="stat-label">Tareas Pendientes</div>
-                </div>
-            </div>
-
-            <div class="card">
-                <h3 style="margin-bottom: 1rem;">Distribución de Gastos</h3>
-                <div class="chart-container">
-                    <canvas id="expenseChart"></canvas>
-                </div>
-            </div>
-
-            <div class="card">
-                <h3 style="margin-bottom: 1rem;">Tareas Recientes</h3>
-                <div id="recentTasks"></div>
-            </div>
-        </div>
-
-        <!-- Transactions Tab -->
-        <div id="transactions" class="tab-content">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
-                <h2>Transacciones</h2>
-                <button class="btn btn-primary" onclick="openTransactionModal()">
-                    <i class="fas fa-plus"></i> Agregar Transacción
-                </button>
-            </div>
-
-            <div class="card">
-                <h3 style="margin-bottom: 1rem;">Filtros</h3>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
-                    <div class="form-group">
-                        <label for="filterType">Tipo</label>
-                        <select id="filterType" onchange="filterTransactions()">
-                            <option value="all">Todas</option>
-                            <option value="income">Ingresos</option>
-                            <option value="expense">Gastos</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="filterCategory">Categoría</label>
-                        <select id="filterCategory" onchange="filterTransactions()">
-                            <option value="all">Todas</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="filterMonth">Mes</label>
-                        <input type="month" id="filterMonth" onchange="filterTransactions()">
+                    <div class="summary-card">
+                        <h2 id="activities-count">0</h2>
+                        <p>Ideas para Citas</p>
                     </div>
                 </div>
-            </div>
+            </section>
 
-            <div class="card">
-                <h3 style="margin-bottom: 1rem;">Lista de Transacciones</h3>
-                <div class="table-container">
-                    <table id="transactionsTable">
-                        <thead>
-                            <tr>
-                                <th>Fecha</th>
-                                <th>Descripción</th>
-                                <th>Categoría</th>
-                                <th>Tipo</th>
-                                <th>Monto</th>
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody id="transactionsBody">
-                        </tbody>
-                    </table>
+            <!-- SECCIÓN: RECUERDOS -->
+            <section id="recuerdos" class="content-section">
+                <div class="card">
+                    <h2>Añadir un nuevo recuerdo 💕</h2>
+                    <form id="memory-form">
+                        <div class="form-group">
+                            <label for="memory-title-input">Título del Recuerdo</label>
+                            <input type="text" id="memory-title-input" placeholder="Ej: Nuestra primera cita" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="memory-date-input">Fecha</label>
+                            <input type="date" id="memory-date-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="memory-content-input">¿Qué pasó ese día?</label>
+                            <textarea id="memory-content-input" placeholder="Escribe aquí todos los detalles..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn">Guardar Recuerdo</button>
+                    </form>
                 </div>
-            </div>
-        </div>
+                <h2 style="text-align: center; margin-bottom: 20px; color: var(--primary-color);">Nuestros Momentos</h2>
+                <div id="memories-list" class="item-list">
+                    <div class="empty-state"><div class="empty-state-icon">📖</div><p>Aún no hay recuerdos. ¡Comienza a escribir su historia!</p></div>
+                </div>
+            </section>
 
-        <!-- Tasks Tab -->
-        <div id="tasks" class="tab-content">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
-                <h2>Tareas</h2>
-                <button class="btn btn-primary" onclick="openTaskModal()">
-                    <i class="fas fa-plus"></i> Agregar Tarea
-                </button>
-            </div>
+            <!-- SECCIÓN: METAS -->
+            <section id="metas" class="content-section">
+                <div class="card">
+                    <h2>Añadir una nueva meta 🎯</h2>
+                    <form id="goal-form">
+                        <div class="form-group">
+                            <label for="goal-title-input">¿Cuál es la meta?</label>
+                            <input type="text" id="goal-title-input" placeholder="Ej: Viajar a Japón" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="goal-date-input">Fecha para lograrla</label>
+                            <input type="date" id="goal-date-input" required>
+                        </div>
+                        <button type="submit" class="btn">Añadir Meta</button>
+                    </form>
+                </div>
+                <h2 style="text-align: center; margin-bottom: 20px; color: var(--primary-color);">Nuestros Sueños</h2>
+                <div id="goals-list" class="item-list">
+                    <div class="empty-state"><div class="empty-state-icon">🚀</div><p>¡A soñar en grande! Añade su primera meta juntos.</p></div>
+                </div>
+            </section>
 
-            <div class="card">
-                <h3 style="margin-bottom: 1rem;">Filtros</h3>
-                <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-                    <button class="btn btn-sm" onclick="filterTasks('all')">Todas</button>
-                    <button class="btn btn-sm" onclick="filterTasks('pending')">Pendientes</button>
-                    <button class="btn btn-sm" onclick="filterTasks('completed')">Completadas</button>
-                    <button class="btn btn-sm" onclick="filterTasks('high')">Alta Prioridad</button>
+            <!-- SECCIÓN: ACTIVIDADES -->
+            <section id="actividades" class="content-section">
+                <div class="card">
+                    <h2>Añadir una idea para una cita 🎉</h2>
+                    <form id="activity-form">
+                        <div class="form-group">
+                            <label for="activity-title-input">Actividad</label>
+                            <input type="text" id="activity-title-input" placeholder="Ej: Picnic en el parque" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="activity-status-input">Estado</label>
+                            <select id="activity-status-input">
+                                <option value="idea">💡 Idea</option>
+                                <option value="planned">🗓️ Planeado</option>
+                                <option value="done">✅ ¡Hecho!</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn">Añadir Actividad</button>
+                    </form>
                 </div>
-            </div>
+                <h2 style="text-align: center; margin-bottom: 20px; color: var(--primary-color);">Nuestro Plan de Diversión</h2>
+                <div id="activities-list" class="item-list">
+                    <div class="empty-state"><div class="empty-state-icon">🎈</div><p>¡Nunca te aburras! Añade una idea para su próxima cita.</p></div>
+                </div>
+            </section>
 
-            <div class="task-list" id="taskList">
-                <!-- Tasks will be dynamically added here -->
-            </div>
-        </div>
-    </main>
-
-    <!-- Transaction Modal -->
-    <div id="transactionModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title">Agregar Transacción</h3>
-                <button class="close-btn" onclick="closeModal('transactionModal')">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <form id="transactionForm" onsubmit="saveTransaction(event)">
-                <div class="form-group">
-                    <label for="transactionType">Tipo</label>
-                    <select id="transactionType" required>
-                        <option value="income">Ingreso</option>
-                        <option value="expense">Gasto</option>
-                    </select>
+            <!-- SECCIÓN: CAJA DE SORPRESAS -->
+            <section id="sorpresa" class="content-section">
+                <div class="card">
+                    <h2>Deja una sorpresa para tu pareja 🎁</h2>
+                    <form id="surprise-form">
+                        <div class="form-group">
+                            <label for="surprise-content-input">Escribe tu mensaje secreto...</label>
+                            <textarea id="surprise-content-input" placeholder="Un 'te amo', un recuerdo bonito, un motivo para sonreír..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn">Guardar Sorpresa</button>
+                    </form>
                 </div>
-                <div class="form-group">
-                    <label for="transactionDescription">Descripción</label>
-                    <input type="text" id="transactionDescription" required placeholder="Ej: Salario, Compras, etc.">
+                <div class="card" id="reveal-card" style="display:none;">
+                    <h2>¡Hay una sorpresa para ti! 💌</h2>
+                    <p style="margin-bottom: 20px;">Haz clic en el botón para descubrir tu mensaje.</p>
+                    <button id="reveal-btn" class="btn">Descubrir Mensaje</button>
+                    <div id="surprise-message" style="margin-top: 20px; padding: 20px; background: var(--background-color); border-radius: 10px; font-style: italic; display: none;"></div>
                 </div>
-                <div class="form-group">
-                    <label for="transactionCategory">Categoría</label>
-                    <select id="transactionCategory" required>
-                        <option value="">Seleccionar categoría</option>
-                    </select>
+                 <div id="no-surprise-state" class="empty-state">
+                    <div class="empty-state-icon">🤫</div>
+                    <p>No hay sorpresas guardadas por ahora... ¡Sé tú el primero en dejar una!</p>
                 </div>
-                <div class="form-group">
-                    <label for="transactionAmount">Monto (€)</label>
-                    <input type="number" id="transactionAmount" step="0.01" required placeholder="0.00">
-                </div>
-                <div class="form-group">
-                    <label for="transactionDate">Fecha</label>
-                    <input type="date" id="transactionDate" required>
-                </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%;">
-                    <i class="fas fa-save"></i> Guardar Transacción
-                </button>
-            </form>
-        </div>
+            </section>
+        </main>
     </div>
 
-    <!-- Task Modal -->
-    <div id="taskModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title" id="taskModalTitle">Agregar Tarea</h3>
-                <button class="close-btn" onclick="closeModal('taskModal')">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <form id="taskForm" onsubmit="saveTask(event)">
-                <div class="form-group">
-                    <label for="taskTitle">Título</label>
-                    <input type="text" id="taskTitle" required placeholder="Ej: Pagar facturas">
-                </div>
-                <div class="form-group">
-                    <label for="taskDescription">Descripción</label>
-                    <textarea id="taskDescription" rows="3" placeholder="Detalles de la tarea..."></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="taskPriority">Prioridad</label>
-                    <select id="taskPriority" required>
-                        <option value="low">Baja</option>
-                        <option value="medium">Media</option>
-                        <option value="high">Alta</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="taskDueDate">Fecha de Vencimiento</label>
-                    <input type="date" id="taskDueDate">
-                </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%;">
-                    <i class="fas fa-save"></i> Guardar Tarea
-                </button>
-            </form>
-        </div>
-    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- ELEMENTOS DEL DOM ---
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('.content-section');
+            const navTitle = document.getElementById('nav-title');
 
-    <!-- Toast Notification -->
-    <div id="toast" class="toast"></div>
+            // --- MANEJO DE NAVEGACIÓN ---
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetSectionId = link.dataset.section;
 
-     <script>
-        // Data Storage
-        let transactions = JSON.parse(localStorage.getItem('transactions')) || [];
-        let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-        let editingTransactionId = null;
-        let editingTaskId = null;
-        // Categories
-        const incomeCategories = ['Salario', 'Inversión', 'Freelance', 'Bono', 'Otro Ingreso'];
-        const expenseCategories = ['Comida', 'Transporte', 'Vivienda', 'Entretenimiento', 'Salud', 'Educación', 'Ropa', 'Otro Gasto'];
-        // Initialize
-        document.addEventListener('DOMContentLoaded', function() {
-            updateCurrentDate();
-            loadTransactions();
-            loadTasks();
-            updateDashboard();
-            updateCategoryFilters();
-            setTodayDate();
-        });
-        // Tab Navigation
-        function switchTab(tabName) {
-            document.querySelectorAll('.nav-tab').forEach(tab => tab.classList.remove('active'));
-            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-            
-            event.target.classList.add('active');
-            document.getElementById(tabName).classList.add('active');
-            
-            if (tabName === 'dashboard') {
-                updateDashboard();
-            }
-        }
-        // Date Functions
-        function updateCurrentDate() {
-            const date = new Date();
-            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            document.getElementById('currentDate').textContent = date.toLocaleDateString('es-ES', options);
-        }
-        function setTodayDate() {
-            const today = new Date().toISOString().split('T')[0];
-            document.getElementById('transactionDate').value = today;
-        }
-        // Toast Notification
-        function showToast(message, duration = 3000) {
-            const toast = document.getElementById('toast');
-            toast.textContent = message;
-            toast.classList.add('show');
-            
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, duration);
-        }
-        // Transaction Functions
-        function openTransactionModal(transactionId = null) {
-            const modal = document.getElementById('transactionModal');
-            const form = document.getElementById('transactionForm');
-            
-            if (transactionId) {
-                const transaction = transactions.find(t => t.id === transactionId);
-                if (transaction) {
-                    editingTransactionId = transactionId;
-                    document.getElementById('transactionType').value = transaction.type;
-                    document.getElementById('transactionDescription').value = transaction.description;
-                    document.getElementById('transactionCategory').value = transaction.category;
-                    document.getElementById('transactionAmount').value = transaction.amount;
-                    document.getElementById('transactionDate').value = transaction.date;
-                    document.getElementById('taskModalTitle').textContent = 'Editar Transacción';
-                }
-            } else {
-                editingTransactionId = null;
-                form.reset();
-                setTodayDate();
-                document.getElementById('taskModalTitle').textContent = 'Agregar Transacción';
-            }
-            
-            updateCategoryOptions();
-            modal.classList.add('active');
-        }
-        function closeModal(modalId) {
-            document.getElementById(modalId).classList.remove('active');
-            if (modalId === 'transactionModal') {
-                document.getElementById('transactionForm').reset();
-                setTodayDate();
-            }
-        }
-        function updateCategoryOptions() {
-            const type = document.getElementById('transactionType').value;
-            const categorySelect = document.getElementById('transactionCategory');
-            const categories = type === 'income' ? incomeCategories : expenseCategories;
-            
-            categorySelect.innerHTML = '<option value="">Seleccionar categoría</option>';
-            categories.forEach(category => {
-                categorySelect.innerHTML += `<option value="${category}">${category}</option>`;
-            });
-        }
-        document.getElementById('transactionType').addEventListener('change', updateCategoryOptions);
-        function saveTransaction(event) {
-            event.preventDefault();
-            
-            const transaction = {
-                id: editingTransactionId || Date.now(),
-                type: document.getElementById('transactionType').value,
-                description: document.getElementById('transactionDescription').value,
-                category: document.getElementById('transactionCategory').value,
-                amount: parseFloat(document.getElementById('transactionAmount').value),
-                date: document.getElementById('transactionDate').value
-            };
-            
-            if (editingTransactionId) {
-                const index = transactions.findIndex(t => t.id === editingTransactionId);
-                transactions[index] = transaction;
-                showToast('Transacción actualizada exitosamente');
-            } else {
-                transactions.push(transaction);
-                showToast('Transacción agregada exitosamente');
-            }
-            
-            localStorage.setItem('transactions', JSON.stringify(transactions));
-            loadTransactions();
-            updateDashboard();
-            closeModal('transactionModal');
-        }
-        function deleteTransaction(id) {
-            if (confirm('¿Estás seguro de que quieres eliminar esta transacción?')) {
-                transactions = transactions.filter(t => t.id !== id);
-                localStorage.setItem('transactions', JSON.stringify(transactions));
-                loadTransactions();
-                updateDashboard();
-                showToast('Transacción eliminada');
-            }
-        }
-        function loadTransactions() {
-            const tbody = document.getElementById('transactionsBody');
-            tbody.innerHTML = '';
-            
-            const filteredTransactions = getFilteredTransactions();
-            
-            filteredTransactions.forEach(transaction => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${formatDate(transaction.date)}</td>
-                    <td>${transaction.description}</td>
-                    <td><span class="transaction-category">${transaction.category}</span></td>
-                    <td><i class="fas fa-${transaction.type === 'income' ? 'arrow-down income' : 'arrow-up expense'}"></i></td>
-                    <td class="${transaction.type === 'income' ? 'income' : 'expense'}">
-                        ${transaction.type === 'income' ? '+' : '-'}$${transaction.amount.toFixed(2)}
-                    </td>
-                    <td>
-                        <button class="btn btn-sm btn-primary" onclick="openTransactionModal(${transaction.id})">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <button class="btn btn-sm btn-danger" onclick="deleteTransaction(${transaction.id})">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </td>
-                `;
-                tbody.appendChild(row);
-            });
-        }
-        function getFilteredTransactions() {
-            let filtered = [...transactions];
-            
-            const type = document.getElementById('filterType').value;
-            const category = document.getElementById('filterCategory').value;
-            const month = document.getElementById('filterMonth').value;
-            
-            if (type !== 'all') {
-                filtered = filtered.filter(t => t.type === type);
-            }
-            
-            if (category !== 'all') {
-                filtered = filtered.filter(t => t.category === category);
-            }
-            
-            if (month) {
-                filtered = filtered.filter(t => t.date.startsWith(month));
-            }
-            
-            return filtered.sort((a, b) => new Date(b.date) - new Date(a.date));
-        }
-        function filterTransactions() {
-            loadTransactions();
-        }
-        function updateCategoryFilters() {
-            const categorySelect = document.getElementById('filterCategory');
-            const allCategories = [...new Set([...incomeCategories, ...expenseCategories])];
-            
-            categorySelect.innerHTML = '<option value="all">Todas</option>';
-            allCategories.forEach(category => {
-                categorySelect.innerHTML += `<option value="${category}">${category}</option>`;
-            });
-        }
-        // Task Functions
-        function openTaskModal(taskId = null) {
-            const modal = document.getElementById('taskModal');
-            const form = document.getElementById('taskForm');
-            
-            if (taskId) {
-                const task = tasks.find(t => t.id === taskId);
-                if (task) {
-                    editingTaskId = taskId;
-                    document.getElementById('taskTitle').value = task.title;
-                    document.getElementById('taskDescription').value = task.description;
-                    document.getElementById('taskPriority').value = task.priority;
-                    document.getElementById('taskDueDate').value = task.dueDate;
-                    document.getElementById('taskModalTitle').textContent = 'Editar Tarea';
-                }
-            } else {
-                editingTaskId = null;
-                form.reset();
-                document.getElementById('taskModalTitle').textContent = 'Agregar Tarea';
-            }
-            
-            modal.classList.add('active');
-        }
-        function saveTask(event) {
-            event.preventDefault();
-            
-            const task = {
-                id: editingTaskId || Date.now(),
-                title: document.getElementById('taskTitle').value,
-                description: document.getElementById('taskDescription').value,
-                priority: document.getElementById('taskPriority').value,
-                dueDate: document.getElementById('taskDueDate').value,
-                completed: false
-            };
-            
-            if (editingTaskId) {
-                const index = tasks.findIndex(t => t.id === editingTaskId);
-                tasks[index] = { ...tasks[index], ...task };
-                showToast('Tarea actualizada exitosamente');
-            } else {
-                tasks.push(task);
-                showToast('Tarea agregada exitosamente');
-            }
-            
-            localStorage.setItem('tasks', JSON.stringify(tasks));
-            loadTasks();
-            updateDashboard();
-            closeModal('taskModal');
-        }
-        function toggleTask(id) {
-            const task = tasks.find(t => t.id === id);
-            if (task) {
-                task.completed = !task.completed;
-                localStorage.setItem('tasks', JSON.stringify(tasks));
-                loadTasks();
-                updateDashboard();
-                showToast(task.completed ? 'Tarea completada' : 'Tarea marcada como pendiente');
-            }
-        }
-        function deleteTask(id) {
-            if (confirm('¿Estás seguro de que quieres eliminar esta tarea?')) {
-                tasks = tasks.filter(t => t.id !== id);
-                localStorage.setItem('tasks', JSON.stringify(tasks));
-                loadTasks();
-                updateDashboard();
-                showToast('Tarea eliminada');
-            }
-        }
-        function filterTasks(filter) {
-            const taskList = document.getElementById('taskList');
-            taskList.innerHTML = '';
-            
-            let filteredTasks = [...tasks];
-            
-            switch(filter) {
-                case 'pending':
-                    filteredTasks = filteredTasks.filter(t => !t.completed);
-                    break;
-                case 'completed':
-                    filteredTasks = filteredTasks.filter(t => t.completed);
-                    break;
-                case 'high':
-                    filteredTasks = filteredTasks.filter(t => t.priority === 'high');
-                    break;
-            }
-            
-            filteredTasks.sort((a, b) => {
-                if (a.completed !== b.completed) return a.completed ? 1 : -1;
-                const priorityOrder = { high: 0, medium: 1, low: 2 };
-                return priorityOrder[a.priority] - priorityOrder[b.priority];
-            });
-            
-            filteredTasks.forEach(task => {
-                const taskItem = document.createElement('div');
-                taskItem.className = `task-item ${task.completed ? 'completed' : ''}`;
-                taskItem.innerHTML = `
-                    <input type="checkbox" class="task-checkbox" ${task.completed ? 'checked' : ''} 
-                           onchange="toggleTask(${task.id})">
-                    <div class="task-text">
-                        <strong>${task.title}</strong>
-                        ${task.description ? `<br><small>${task.description}</small>` : ''}
-                        ${task.dueDate ? `<br><small><i class="fas fa-calendar"></i> ${formatDate(task.dueDate)}</small>` : ''}
-                    </div>
-                    <span class="task-priority priority-${task.priority}">
-                        ${task.priority === 'high' ? 'Alta' : task.priority === 'medium' ? 'Media' : 'Baja'}
-                    </span>
-                    <button class="btn btn-sm btn-danger" onclick="deleteTask(${task.id})">
-                        <i class="fas fa-trash"></i>
-                    </button>
-                `;
-                taskList.appendChild(taskItem);
-            });
-            
-            if (filteredTasks.length === 0) {
-                taskList.innerHTML = '<p style="text-align: center; color: #6b7280;">No hay tareas</p>';
-            }
-        }
-        function loadTasks() {
-            filterTasks('all');
-        }
-        // Dashboard Functions
-        function updateDashboard() {
-            const totalIncome = transactions
-                .filter(t => t.type === 'income')
-                .reduce((sum, t) => sum + t.amount, 0);
-            
-            const totalExpenses = transactions
-                .filter(t => t.type === 'expense')
-                .reduce((sum, t) => sum + t.amount, 0);
-            
-            const balance = totalIncome - totalExpenses;
-            
-            document.getElementById('totalIncome').textContent = `$${totalIncome.toFixed(2)}`;
-            document.getElementById('totalExpenses').textContent = `$${totalExpenses.toFixed(2)}`;
-            document.getElementById('balance').textContent = `$${balance.toFixed(2)}`;
-            document.getElementById('totalTasks').textContent = tasks.filter(t => !t.completed).length;
-            
-            updateExpenseChart();
-            updateRecentTasks();
-        }
-        function updateExpenseChart() {
-            const ctx = document.getElementById('expenseChart').getContext('2d');
-            
-            const expensesByCategory = {};
-            transactions
-                .filter(t => t.type === 'expense')
-                .forEach(t => {
-                    expensesByCategory[t.category] = (expensesByCategory[t.category] || 0) + t.amount;
+                    // Quitar clase 'active' de todos los links y secciones
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    sections.forEach(s => s.classList.remove('active'));
+
+                    // Añadir clase 'active' al link y sección correspondientes
+                    link.classList.add('active');
+                    document.getElementById(targetSectionId).classList.add('active');
                 });
+            });
+
+            // --- GUARDADO EN LOCALSTORAGE ---
+            const saveData = (key, data) => localStorage.setItem(`diarioPareja_${key}`, JSON.stringify(data));
+            const loadData = (key) => JSON.parse(localStorage.getItem(`diarioPareja_${key}`)) || [];
             
-            const labels = Object.keys(expensesByCategory);
-            const data = Object.values(expensesByCategory);
+            // TÍTULO EDITABLE
+            const savedTitle = localStorage.getItem('diarioPareja_title');
+            if (savedTitle) navTitle.textContent = savedTitle;
+            navTitle.addEventListener('input', () => localStorage.setItem('diarioPareja_title', navTitle.textContent));
+
+            // --- FUNCIÓN GENÉRICA PARA RENDERIZAR LISTAS ---
+            const renderList = (listId, items, itemTemplate, emptyMessage) => {
+                const listElement = document.getElementById(listId);
+                if (items.length === 0) {
+                    listElement.innerHTML = `<div class="empty-state"><div class="empty-state-icon">${emptyMessage.icon}</div><p>${emptyMessage.text}</p></div>`;
+                    return;
+                }
+                listElement.innerHTML = items.map(itemTemplate).join('');
+            };
             
-            new Chart(ctx, {
-                type: 'doughnut',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        data: data,
-                        backgroundColor: [
-                            '#ef4444',
-                            '#f59e0b',
-                            '#10b981',
-                            '#3b82f6',
-                            '#8b5cf6',
-                            '#ec4899',
-                            '#14b8a6',
-                            '#f97316'
-                        ]
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            position: 'right'
-                        },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    let label = context.label || '';
-                                    if (label) {
-                                        label += ': ';
-                                    }
-                                    label += '$' + context.parsed.toFixed(2);
-                                    return label;
-                                }
-                            }
+            // --- FUNCIÓN PARA ACTUALIZAR CONTADORES DEL INICIO ---
+            const updateCounters = () => {
+                document.getElementById('memories-count').textContent = memories.length;
+                document.getElementById('goals-count').textContent = goals.length;
+                document.getElementById('activities-count').textContent = activities.length;
+            };
+
+            // --- LÓGICA DE RECUERDOS ---
+            let memories = loadData('memories');
+            const memoryForm = document.getElementById('memory-form');
+
+            const renderMemories = () => {
+                memories.sort((a, b) => new Date(b.date) - new Date(a.date));
+                renderList('memories-list', memories, (memory) => `
+                    <div class="item-card" data-id="${memory.id}">
+                        <button class="delete-btn" data-type="memory" data-id="${memory.id}">🗑️</button>
+                        <h3>${memory.title}</h3>
+                        <p>${memory.content}</p>
+                        <span class="item-meta">📅 ${new Date(memory.date).toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+                    </div>
+                `, { icon: '📖', text: 'Aún no hay recuerdos. ¡Comienza a escribir su historia!' });
+                updateCounters();
+            };
+
+            memoryForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                memories.push({
+                    id: Date.now(),
+                    title: document.getElementById('memory-title-input').value,
+                    date: document.getElementById('memory-date-input').value,
+                    content: document.getElementById('memory-content-input').value
+                });
+                saveData('memories', memories);
+                renderMemories();
+                memoryForm.reset();
+            });
+
+            // --- LÓGICA DE METAS ---
+            let goals = loadData('goals');
+            const goalForm = document.getElementById('goal-form');
+
+            const renderGoals = () => {
+                goals.sort((a, b) => new Date(a.date) - new Date(b.date));
+                renderList('goals-list', goals, (goal) => `
+                    <div class="item-card" data-id="${goal.id}">
+                        <button class="delete-btn" data-type="goal" data-id="${goal.id}">🗑️</button>
+                        <h3>${goal.title}</h3>
+                        <span class="item-meta">🎯 Fecha límite: ${new Date(goal.date).toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+                    </div>
+                `, { icon: '🚀', text: '¡A soñar en grande! Añade su primera meta juntos.' });
+                updateCounters();
+            };
+
+            goalForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                goals.push({
+                    id: Date.now(),
+                    title: document.getElementById('goal-title-input').value,
+                    date: document.getElementById('goal-date-input').value
+                });
+                saveData('goals', goals);
+                renderGoals();
+                goalForm.reset();
+            });
+
+            // --- LÓGICA DE ACTIVIDADES ---
+            let activities = loadData('activities');
+            const activityForm = document.getElementById('activity-form');
+            const statusMap = { idea: '💡 Idea', planned: '🗓️ Planeado', done: '✅ ¡Hecho!' };
+
+            const renderActivities = () => {
+                renderList('activities-list', activities, (activity) => `
+                    <div class="item-card" data-id="${activity.id}">
+                        <button class="delete-btn" data-type="activity" data-id="${activity.id}">🗑️</button>
+                        <h3>${activity.title}</h3>
+                        <span class="item-meta">${statusMap[activity.status]}</span>
+                    </div>
+                `, { icon: '🎈', text: '¡Nunca te aburras! Añade una idea para su próxima cita.' });
+                updateCounters();
+            };
+
+            activityForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                activities.push({
+                    id: Date.now(),
+                    title: document.getElementById('activity-title-input').value,
+                    status: document.getElementById('activity-status-input').value
+                });
+                saveData('activities', activities);
+                renderActivities();
+                activityForm.reset();
+            });
+
+            // --- LÓGICA DE SORPRESA ---
+            const surpriseForm = document.getElementById('surprise-form');
+            const revealCard = document.getElementById('reveal-card');
+            const noSurpriseState = document.getElementById('no-surprise-state');
+            const revealBtn = document.getElementById('reveal-btn');
+            const surpriseMessageDiv = document.getElementById('surprise-message');
+            
+            const checkForSurprise = () => {
+                const surprise = localStorage.getItem('diarioPareja_surprise');
+                if (surprise) {
+                    revealCard.style.display = 'block';
+                    noSurpriseState.style.display = 'none';
+                    surpriseMessageDiv.style.display = 'none'; // Ocultar mensaje hasta que se revele
+                } else {
+                    revealCard.style.display = 'none';
+                    noSurpriseState.style.display = 'block';
+                }
+            };
+
+            surpriseForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const message = document.getElementById('surprise-content-input').value;
+                localStorage.setItem('diarioPareja_surprise', message);
+                surpriseForm.reset();
+                checkForSurprise();
+            });
+
+            revealBtn.addEventListener('click', () => {
+                const message = localStorage.getItem('diarioPareja_surprise');
+                if (message) {
+                    surpriseMessageDiv.textContent = message;
+                    surpriseMessageDiv.style.display = 'block';
+                    revealBtn.style.display = 'none'; // Ocultar botón después de revelar
+                    // Borrar la sorpresa después de ser vista
+                    setTimeout(() => {
+                        localStorage.removeItem('diarioPareja_surprise');
+                        checkForSurprise();
+                    }, 5000); // Dar tiempo para leerlo antes de que desaparezca
+                }
+            });
+
+            // --- LÓGICA DE BORRADO (DELEGACIÓN DE EVENTOS) ---
+            document.body.addEventListener('click', (e) => {
+                if (e.target.classList.contains('delete-btn')) {
+                    const type = e.target.dataset.type;
+                    const id = parseInt(e.target.dataset.id);
+                    if (confirm('¿Estás segura de que quieres borrar esto?')) {
+                        if (type === 'memory') {
+                            memories = memories.filter(m => m.id !== id);
+                            saveData('memories', memories);
+                            renderMemories();
+                        } else if (type === 'goal') {
+                            goals = goals.filter(g => g.id !== id);
+                            saveData('goals', goals);
+                            renderGoals();
+                        } else if (type === 'activity') {
+                            activities = activities.filter(a => a.id !== id);
+                            saveData('activities', activities);
+                            renderActivities();
                         }
                     }
                 }
             });
-        }
-        function updateRecentTasks() {
-            const recentTasksContainer = document.getElementById('recentTasks');
-            const recentTasks = tasks
-                .filter(t => !t.completed)
-                .sort((a, b) => new Date(a.dueDate || '9999-12-31') - new Date(b.dueDate || '9999-12-31'))
-                .slice(0, 3);
-            
-            if (recentTasks.length === 0) {
-                recentTasksContainer.innerHTML = '<p style="color: #6b7280;">No hay tareas pendientes</p>';
-                return;
-            }
-            
-            recentTasksContainer.innerHTML = recentTasks.map(task => `
-                <div style="padding: 0.5rem 0; border-bottom: 1px solid #e5e7eb;">
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <div>
-                            <strong>${task.title}</strong>
-                            ${task.dueDate ? `<br><small style="color: #6b7280;">Vence: ${formatDate(task.dueDate)}</small>` : ''}
-                        </div>
-                        <span class="task-priority priority-${task.priority}">
-                            ${task.priority === 'high' ? 'Alta' : task.priority === 'medium' ? 'Media' : 'Baja'}
-                        </span>
-                    </div>
-                </div>
-            `).join('');
-        }
-        // Utility Functions
-        function formatDate(dateString) {
-            const date = new Date(dateString);
-            const options = { day: 'numeric', month: 'short', year: 'numeric' };
-            return date.toLocaleDateString('es-ES', options);
-        }
-        // Close modals on outside click
-        window.onclick = function(event) {
-            if (event.target.classList.contains('modal')) {
-                event.target.classList.remove('active');
-            }
-        }
-    </script>
-</body>
 
+            // --- CARGA INICIAL ---
+            renderMemories();
+            renderGoals();
+            renderActivities();
+            checkForSurprise();
+            updateCounters();
+        });
+    </script>
+
+</body>
 </html>
